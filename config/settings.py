@@ -7,7 +7,8 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-mediahub-class-project-change-before-deployment"
 DEBUG = True
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost","fifth-contact-session-1.onrender.com"]
+CSRF_TRUSTED_ORIGINS = ["http://fifth-contact-session-1.onrender.com", "https://fifth-contact-session-1.onrender.com"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
