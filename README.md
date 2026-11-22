@@ -16,9 +16,9 @@ MediaHub is a responsive multimedia website built with Django. It lets visitors 
 - Python 3.10+
 - pip
 
-## Run locally
+## Clone and Run locally
 
-Open a terminal in the extracted `mediahub` project folder.
+git clone https://github.com/Damiemmy/fifth-contact-session.git
 
 ### Windows PowerShell
 ```powershell
