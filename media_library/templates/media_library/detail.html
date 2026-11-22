@@ -1,0 +1,13 @@
+{% extends "media_library/base.html" %}
+{% block title %}{{ item.title }} — MediaHub{% endblock %}
+{% block content %}
+<a class="back-link" href="{% url 'library' %}">← Back to library</a>
+<div class="detail-layout"><section class="detail-main">
+  <div class="player-frame">
+  {% if item.media_type == 'video' %}<video controls preload="metadata" {% if item.cover_image %}poster="{{ item.cover_image.url }}"{% endif %}><source src="{{ item.file.url }}">Your browser does not support video playback.</video>
+  {% elif item.media_type == 'audio' %}<div class="audio-visual"><span>♫</span><p>NOW PLAYING</p><h2>{{ item.title }}</h2><audio controls><source src="{{ item.file.url }}">Your browser does not support audio playback.</audio></div>
+  {% else %}<img class="detail-image" src="{{ item.file.url }}" alt="{{ item.title }}">{% endif %}
+  </div>
+  <span class="eyebrow">{{ item.category.name }} · {{ item.get_media_type_display }}</span><h1 class="detail-title">{{ item.title }}</h1><p class="detail-description">{{ item.description|default:"No description has been added for this media yet." }}</p>
+</section><aside class="detail-sidebar"><span class="eyebrow">ABOUT THIS MEDIA</span><div class="meta-row"><small>CREATOR</small><strong>{{ item.creator }}</strong></div><div class="meta-row"><small>ADDED</small><strong>{{ item.created_at|date:"M d, Y" }}</strong></div><div class="meta-row"><small>VIEWS</small><strong>{{ item.views }}</strong></div><div class="meta-row"><small>FORMAT</small><strong>{{ item.get_media_type_display }}</strong></div><a class="button button-dark full-button" href="{{ item.file.url }}" download>Download file ↓</a></aside></div>
+{% endblock %}

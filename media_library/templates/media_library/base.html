@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MediaHub — discover videos, audio and visual stories in one place.">
+  <title>{% block title %}MediaHub{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'media_library/style.css' %}">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{% url 'home' %}"><span class="brand-mark">M</span> MediaHub</a>
+  <nav><a href="{% url 'home' %}">Home</a><a href="{% url 'library' %}">Explore</a><a class="nav-upload" href="{% url 'upload_media' %}">＋ Upload media</a></nav>
+</header>
+<main class="page">
+  {% if messages %}<div class="messages">{% for message in messages %}<p>{{ message }}</p>{% endfor %}</div>{% endif %}
+  {% block content %}{% endblock %}
+</main>
+<footer><span class="brand"><span class="brand-mark">M</span> MediaHub</span><span>One space. Every format. Endless discovery.</span><span>Built with Django</span></footer>
+</body>
+</html>

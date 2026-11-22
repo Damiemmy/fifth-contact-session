@@ -1,0 +1,11 @@
+{% extends "media_library/base.html" %}
+{% block title %}Upload media — MediaHub{% endblock %}
+{% block content %}
+<section class="page-intro"><span class="eyebrow">ADD TO THE COLLECTION</span><h1>Share your story.</h1><p>Upload a video, audio recording or image to the MediaHub library.</p></section>
+<form class="upload-panel" method="post" enctype="multipart/form-data">{% csrf_token %}
+  {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+  {% for field in form %}<div class="form-field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}{% for error in field.errors %}<small class="error">{{ error }}</small>{% endfor %}</div>{% endfor %}
+  <div class="upload-note">Accepted formats: MP4, WebM, MOV, MP3, WAV, OGG, M4A, JPG, PNG, GIF and WebP. Maximum file size: 100 MB.</div>
+  <button class="button button-dark" type="submit">Publish to library ↗</button>
+</form>
+{% endblock %}

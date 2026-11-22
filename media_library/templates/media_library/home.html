@@ -1,0 +1,17 @@
+{% extends "media_library/base.html" %}
+{% block title %}MediaHub — Discover something good{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">YOUR WORLD OF MEDIA</span>
+    <h1>Stories sound better<br>when <em>shared.</em></h1>
+    <p>Discover videos, audio and visual inspiration. A home for the content you love.</p>
+    <div class="hero-actions"><a class="button button-light" href="{% url 'library' %}">Explore library <span>↗</span></a><a class="text-link" href="{% url 'upload_media' %}">Share your media →</a></div>
+    <div class="hero-stats"><div><strong>{{ total_items }}</strong><small>MEDIA ITEMS</small></div><div><strong>{{ categories|length }}</strong><small>CATEGORIES</small></div><div><strong>3</strong><small>FORMATS</small></div></div>
+  </div>
+  <div class="hero-art" aria-label="Abstract media artwork"><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="art-card art-main"><span>▶</span><small>PLAY YOUR NEXT STORY</small></div><div class="floating-note">♫ <span>Sound on.</span></div><div class="art-caption">CREATE · WATCH · LISTEN</div></div>
+</section>
+<section class="section-head"><div><span class="eyebrow">HANDPICKED FOR YOU</span><h2>Featured discoveries</h2></div><a class="text-link" href="{% url 'library' %}">View all media →</a></section>
+{% if featured_items %}<div class="feature-grid">{% for item in featured_items %}<a class="feature-card" href="{{ item.get_absolute_url }}"><div class="media-thumb {{ item.media_type }}">{% if item.cover_image %}<img src="{{ item.cover_image.url }}" alt="{{ item.title }}">{% else %}<span class="thumb-symbol">{% if item.media_type == 'video' %}▶{% elif item.media_type == 'audio' %}♫{% else %}▧{% endif %}</span>{% endif %}<span class="type-pill">{{ item.get_media_type_display }}</span></div><div class="card-copy"><small>{{ item.category.name }}</small><h3>{{ item.title }}</h3><p>{{ item.creator }} · {{ item.views }} views</p></div></a>{% endfor %}</div>{% else %}<div class="empty-state"><div class="empty-icon">✳</div><h3>Your next discovery starts here.</h3><p>Upload the first video, audio recording or image to bring this library to life.</p><a class="button button-dark" href="{% url 'upload_media' %}">Upload the first media</a></div>{% endif %}
+<section class="category-strip"><div><span class="eyebrow">BROWSE YOUR WAY</span><h2>Explore by format</h2></div><div class="category-links"><a href="{% url 'library' %}?type=video"><span>▶</span> Videos</a><a href="{% url 'library' %}?type=audio"><span>♫</span> Audio</a><a href="{% url 'library' %}?type=image"><span>▧</span> Images</a></div></section>
+{% endblock %}
