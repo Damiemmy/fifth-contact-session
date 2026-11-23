@@ -6,17 +6,19 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-mediahub-class-project-change-before-deployment"
-DEBUG = True
+DEBUG= os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ["127.0.0.1", "localhost","fifth-contact-session-1.onrender.com"]
 CSRF_TRUSTED_ORIGINS = ["http://fifth-contact-session-1.onrender.com", "https://fifth-contact-session-1.onrender.com"]
 
 INSTALLED_APPS = [
+    "cloudinary_storage",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "cloudinary",
     "media_library",
 ]
 
@@ -80,10 +82,45 @@ TIME_ZONE = "Africa/Lagos"
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_URL = "static/"
+# STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
-MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR / "media"
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# MEDIA_URL = "media/"
+# MEDIA_ROOT = BASE_DIR / "media"
+# DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': 'your_cloud_name',
+#     'API_KEY': 'your_api_key',
+#     'API_SECRET': 'your_api_secret'
+# }
+
+
+
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+MEDIA_URL = "/media/"
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "cloudinary_storage.storage.StaticHashedCloudinaryStorage",
+    },
+}
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+    "SECURE": True,
+}
